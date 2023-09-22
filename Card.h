@@ -3,18 +3,24 @@
 
 #include <cstdint>
 
-enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES };
-enum Rank { SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE };
+namespace Suit{
+    enum Suit { ACORNS, LEAVES, HEARTS, BALLS };
+    static const Suit Suits[] = {Suit::ACORNS, Suit::LEAVES, Suit::HEARTS, Suit::BALLS};
+}
+namespace Rank{
+    enum Rank { SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE };
+    static const Rank Ranks[] = {Rank::SEVEN, Rank::EIGHT, Rank::NINE, Rank::TEN, Rank::JACK, Rank::QUEEN, Rank::KING, Rank::ACE};
+}
 
 class Card {
 private:
-    Suit suit;
-    Rank rank;
+    Suit::Suit suit;
+    Rank::Rank rank;
 public:
-    Card(Suit suit, Rank rank);
+    Card(Suit::Suit suit, Rank::Rank rank);
 
-    Suit getSuit() const;
-    Rank getRank() const;
+    Suit::Suit getSuit() const;
+    Rank::Rank getRank() const;
     __int8_t getValue() const;
 
     friend bool operator==(const Card& card1, const Card& card2);

@@ -9,4 +9,6 @@ add_executable(durak main.cpp
         Player.h
         Player.cpp
         Deck.h
-        Deck.cpp)
+        Deck.cpp
+        Game.cpp
+        Game.h)

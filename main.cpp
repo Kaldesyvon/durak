@@ -1,9 +1,19 @@
 #include <iostream>
-#include "Card.h"
+
+#include "Deck.h"
+#include "Game.h"
+
+void test(){
+    Game game;
+
+    game.startGame(2);
+
+    game.getPlayers().at(0).showHand();
+}
 
 int main() {
-    Card card1(HEARTS, ACE);
-    Card card2(HEARTS, );
-    std::cout << (card1 == card2);
+    test();
     return 0;
 }
+
+

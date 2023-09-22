@@ -4,17 +4,16 @@
 #include <vector>
 
 #include "Card.h"
+#include "Player.h"
 
 
 class Deck{
 public:
-    static Deck& getInstance();
-
-private:
     Deck();
-    std::vector<Card> cards{};
+private:
+    std::vector<Card> cards;
     void shuffle();
-    Card dealCard();
+    void dealCards(std::vector<Player>& players);
 };
 
 #endif //DURAK_DECK_H
