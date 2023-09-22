@@ -13,7 +13,7 @@ Rank::Rank Card::getRank() const {
     return rank;
 }
 
-__int8_t Card::getValue() const {
+int8_t Card::getValue() const {
     switch (rank) {
         case Rank::SEVEN: return 0;
         case Rank::EIGHT: return 1;

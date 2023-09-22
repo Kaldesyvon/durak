@@ -8,13 +8,16 @@
 #include <vector>
 
 #include "Player.h"
+#include "Deck.h"
 
 class Game {
 private:
-    std::vector<Player> players;
+    std::vector<Player*> players;
+    Deck* deck;
 public:
     void startGame(int numberOfPlayers);
-    std::vector<Player> getPlayers();
+    void endGame();
+    std::vector<Player*> getPlayers();
 };
 
 

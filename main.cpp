@@ -8,7 +8,8 @@ void test(){
 
     game.startGame(2);
 
-    game.getPlayers().at(0).showHand();
+    game.getPlayers().at(0)->showHand();
+    game.getPlayers().at(1)->showHand();
 }
 
 int main() {

@@ -21,7 +21,7 @@ public:
 
     Suit::Suit getSuit() const;
     Rank::Rank getRank() const;
-    __int8_t getValue() const;
+    int8_t getValue() const;
 
     friend bool operator==(const Card& card1, const Card& card2);
 };

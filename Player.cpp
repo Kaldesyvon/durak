@@ -6,11 +6,11 @@
 Player::Player() {
     std::cout << "enter name: ";
     std::cin >> this->name;
-    this->cardsOnHand = std::vector<Card>{};
+    this->cardsOnHand = std::vector<Card*>{};
 //    this->tromf =;
 }
 
-void Player::addToHand(Card& card) {
+void Player::addToHand(Card* card) {
     this->cardsOnHand.push_back(card);
 }
 
@@ -22,7 +22,7 @@ std::string Player::getName() {
 //    this->tromf = this->tromf ? this->tromf: suit;
 //}
 
-Card Player::playCard(Card cardToPlay) {
+Card* Player::playCard(Card* cardToPlay) {
     // checks if player can play it
     auto position = std::find(this->cardsOnHand.begin(), this->cardsOnHand.end(), cardToPlay);
     if (position != this->cardsOnHand.end())
@@ -33,22 +33,23 @@ Card Player::playCard(Card cardToPlay) {
 }
 
 void Player::showHand() {
-    for (Card card : cardsOnHand) {
-        switch (card.getSuit()) {
-            case Suit::ACORNS: std::cout << "Zalud ";
-            case Suit::HEARTS: std::cout << "Srdce ";
-            case Suit::BALLS: std::cout << "Gula ";
-            case Suit::LEAVES: std::cout << "Zelen ";
+    std::cout << this->name << " has these cards: ";
+    for (auto card : cardsOnHand) {
+        switch (card->getSuit()) {
+            case Suit::ACORNS: { std::cout << "Zalud "; break; }
+            case Suit::HEARTS: { std::cout << "Srdce "; break; }
+            case Suit::BALLS: { std::cout << "Gula "; break; }
+            case Suit::LEAVES: { std::cout << "Zelen "; break; }
         }
-        switch (card.getRank()) {
-            case Rank::SEVEN: std::cout << "7,";
-            case Rank::EIGHT: std::cout << "8,";
-            case Rank::NINE: std::cout << "9,";
-            case Rank::TEN: std::cout << "10,";
-            case Rank::JACK: std::cout << "J,";
-            case Rank::QUEEN: std::cout << "Q,";
-            case Rank::KING: std::cout << "K,";
-            case Rank::ACE: std::cout << "A,";
+        switch (card->getRank()) {
+            case Rank::SEVEN: { std::cout << "7, "; break; }
+            case Rank::EIGHT: { std::cout << "8, "; break; }
+            case Rank::NINE: { std::cout << "9, "; break; }
+            case Rank::TEN: { std::cout << "10, "; break; }
+            case Rank::JACK: { std::cout << "J, "; break; }
+            case Rank::QUEEN: { std::cout << "Q, "; break; }
+            case Rank::KING: { std::cout << "K, "; break; }
+            case Rank::ACE: { std::cout << "A, "; break; }
         }
     }
     std::cout << std::endl;
