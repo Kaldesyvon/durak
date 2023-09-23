@@ -11,13 +11,14 @@
 #include "Deck.h"
 
 class Game {
+public:
+    explicit Game(int numberOfPlayers);
+    ~Game();
+    void endGame();
+    std::vector<Player*> getPlayers();
 private:
     std::vector<Player*> players;
     Deck* deck;
-public:
-    void startGame(int numberOfPlayers);
-    void endGame();
-    std::vector<Player*> getPlayers();
 };
 
 

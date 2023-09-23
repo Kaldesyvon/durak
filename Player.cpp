@@ -10,6 +10,13 @@ Player::Player() {
 //    this->tromf =;
 }
 
+Player::~Player(){
+    while(!cardsOnHand.empty()){
+        delete cardsOnHand.back();
+        cardsOnHand.pop_back();
+    }
+}
+
 void Player::addToHand(Card* card) {
     this->cardsOnHand.push_back(card);
 }
@@ -36,10 +43,11 @@ void Player::showHand() {
     std::cout << this->name << " has these cards: ";
     for (auto card : cardsOnHand) {
         switch (card->getSuit()) {
-            case Suit::ACORNS: { std::cout << "Zalud "; break; }
-            case Suit::HEARTS: { std::cout << "Srdce "; break; }
-            case Suit::BALLS: { std::cout << "Gula "; break; }
-            case Suit::LEAVES: { std::cout << "Zelen "; break; }
+            case Suit::ACORNS: { std::cout << "Zalud:"; break; }
+            case Suit::HEARTS: { std::cout << "Srdce:"; break; }
+            case Suit::BALLS: { std::cout << "Gula:"; break; }
+            case Suit::LEAVES: { std::cout << "Zelen:"; break; }
+            default: break;
         }
         switch (card->getRank()) {
             case Rank::SEVEN: { std::cout << "7, "; break; }
@@ -50,6 +58,7 @@ void Player::showHand() {
             case Rank::QUEEN: { std::cout << "Q, "; break; }
             case Rank::KING: { std::cout << "K, "; break; }
             case Rank::ACE: { std::cout << "A, "; break; }
+            default: break;
         }
     }
     std::cout << std::endl;

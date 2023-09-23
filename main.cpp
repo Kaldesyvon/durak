@@ -4,9 +4,7 @@
 #include "Game.h"
 
 void test(){
-    Game game;
-
-    game.startGame(2);
+    Game game(2);
 
     game.getPlayers().at(0)->showHand();
     game.getPlayers().at(1)->showHand();

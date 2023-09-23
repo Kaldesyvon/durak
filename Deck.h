@@ -10,11 +10,11 @@
 class Deck{
 public:
     Deck();
+    ~Deck();
     void dealCards(std::vector<Player*>& players);
 private:
     std::vector<Card*> cards;
     void shuffle();
-    void deleteDeck();
 };
 
 #endif //DURAK_DECK_H
