@@ -23,7 +23,7 @@ int8_t Card::getValue() const {
         case Rank::QUEEN: return 5;
         case Rank::KING: return 6;
         case Rank::ACE: return 7;
-        default: -1;
+        default: return -1;
     }
 }
 

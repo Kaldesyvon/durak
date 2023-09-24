@@ -1,7 +1,3 @@
-//
-// Created by martin on 9/21/23.
-//
-
 #ifndef DURAK_GAME_H
 #define DURAK_GAME_H
 
@@ -14,9 +10,10 @@ class Game {
 public:
     explicit Game(int numberOfPlayers);
     ~Game();
-    void endGame();
+    void gameLoop();
     std::vector<Player*> getPlayers();
 private:
+    void setTromfToPlayers();
     std::vector<Player*> players;
     Deck* deck;
 };
