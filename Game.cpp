@@ -36,7 +36,22 @@ std::vector<Player*> Game::getPlayers() {
 
 
 void Game::gameLoop(){
-    setTromfToPlayers();
+    Player* turnPlayer = setTromfToPlayersSetFirstPlayer();
+    Card* playedCard;
+
+    while(players.size() != 1) {
+        std::cout << turnPlayer->getName() << "'s turn\n";
+        if (deck->getCards().empty()){
+            playedCard = turnPlayer->playCard();
+        } else{
+            playedCard = turnPlayer->playCard(deck->getCards().back());
+        }
+
+        deck->addPlayedCard(playedCard);
+    }
+    std::cout << "Game Over!";
+
+
 
 //    while(players.size() != 1) {
 //        break;
@@ -57,7 +72,7 @@ bool isHeartAceInPlayerHand(Player* player){
     return false;
 }
 
-void Game::setTromfToPlayers(){
+Player* Game::setTromfToPlayersSetFirstPlayer(){
     int indexOfPlayerWithHeartAce;
 
     for (auto player : this->players) {
@@ -72,5 +87,7 @@ void Game::setTromfToPlayers(){
     for (int i = 0; i < numberOfPlayers; ++i) {
         players.at((indexOfPlayerWithHeartAce + i) % numberOfPlayers )->setTromf(Suit::Suits[i]);
     }
+
+    return players.at(indexOfPlayerWithHeartAce);
 }
 

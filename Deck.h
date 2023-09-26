@@ -12,7 +12,10 @@ public:
     Deck();
     ~Deck();
     void dealCards(std::vector<Player*>& players);
+    void addPlayedCard(Card* card);
+    std::vector<Card*> getCards();
 private:
+    void showDeck();
     std::vector<Card*> cards;
     void shuffle();
 };

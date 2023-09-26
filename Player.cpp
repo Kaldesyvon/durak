@@ -30,14 +30,29 @@ void Player::setTromf(Suit::Suit suit) {
     std::cout << this->name << " has tromf " << Suit::toString(suit) << std::endl;
 }
 
-Card* Player::playCard(Card* cardToPlay) {
-    // checks if player can play it
-    auto position = std::find(this->cardsOnHand.begin(), this->cardsOnHand.end(), cardToPlay);
-    if (position != this->cardsOnHand.end())
-        this->cardsOnHand.erase(position);
+bool Player::isValidPositionOfCard(int index) {
+    if (index < 0 || index > this->cardsOnHand.size()) {
+        std::cout << "Invalid index!";
+        return false;
+    }
+    return true;
+}
 
-    return cardToPlay;
+Card* Player::playCard(Card* previousCard) {
+    int indexOfCardToPlay = -1;
+    Card* playedCard = nullptr;
 
+    do{
+        std::cout << "Choose card to play: ";
+        this->showHand();
+        std::cin >> indexOfCardToPlay;
+        playedCard = this->cardsOnHand.at(indexOfCardToPlay); // TODO: nekontroluje valid position vcas
+    } while (!isValidPositionOfCard(indexOfCardToPlay) && isPlayedCardValid(previousCard, playedCard));
+
+    // asi daco plano robi
+    std::remove(this->cardsOnHand.begin(), this->cardsOnHand.end(), playedCard); // NOLINT(*-unused-return-value)
+
+    return playedCard;
 }
 
 std::vector<Card*> Player::getCardsOnHand(){
@@ -45,10 +60,34 @@ std::vector<Card*> Player::getCardsOnHand(){
 }
 
 void Player::showHand() {
-    std::cout << this->name << " has these cards: ";
-    for (auto card : cardsOnHand) {
-        std::cout << Suit::toString(card->getSuit()) << ":";
-        std::cout << Rank::toString(card->getRank()) << ", ";
+//    std::cout << this->name << " has these cards: ";
+    for (auto i = 0; i < this->cardsOnHand.size(); i++) { // TODO: beautify pls
+        std::cout << i << "-";
+        this->cardsOnHand.at(i)->printCard();
     }
-    std::cout << std::endl << std::endl;
+
+    std::cout << std::endl;
+}
+
+bool Player::isPlayedCardValid(Card *previousCard, Card *playedCard) { // TODO: include TROMFs pls
+    if (previousCard->getValue() < playedCard->getValue()) {
+        return true;
+    }
+    return false;
+}
+
+Card *Player::playCard() { // TODO: make this function  pls
+    int indexOfCardToPlay = -1;
+    Card* playedCard = nullptr;
+
+    do{
+        std::cout << "Choose card to play: ";
+        this->showHand();
+        std::cin >> indexOfCardToPlay;
+        playedCard = this->cardsOnHand.at(indexOfCardToPlay);
+    } while (!isValidPositionOfCard(indexOfCardToPlay));
+
+    std::remove(this->cardsOnHand.begin(), this->cardsOnHand.end(), playedCard); // NOLINT(*-unused-return-value)
+
+    return playedCard;
 }

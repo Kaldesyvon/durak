@@ -41,5 +41,22 @@ void Deck::dealCards(std::vector<Player*>& players) {
     }
 }
 
+void Deck::addPlayedCard(Card *card) {
+    this->cards.push_back(card);
+    this->showDeck();
+}
+
+std::vector<Card*> Deck::getCards() {
+    return this->cards;
+}
+
+void Deck::showDeck() {
+    if (this->cards.empty()) {
+        std::cout << "Deck's empty";
+    } else {
+        this->cards.back()->printCard();
+    }
+}
+
 
 

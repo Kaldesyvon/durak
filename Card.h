@@ -47,6 +47,7 @@ public:
     [[nodiscard]] Suit::Suit getSuit() const;
     [[nodiscard]] Rank::Rank getRank() const;
     [[nodiscard]] int8_t getValue() const;
+    void printCard() const;
 
     friend bool operator==(const Card& card1, const Card& card2);
 };
