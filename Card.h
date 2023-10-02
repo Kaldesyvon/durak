@@ -49,7 +49,9 @@ public:
     [[nodiscard]] int8_t getValue() const;
     void printCard() const;
 
-    friend bool operator==(const Card& card1, const Card& card2);
+    bool operator==(const Card& other) const {
+        return rank == other.rank && suit == other.suit;
+    }
 };
 
 #endif //DURAK_CARD_H

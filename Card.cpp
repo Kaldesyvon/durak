@@ -27,10 +27,6 @@ int8_t Card::getValue() const {
     }
 }
 
-bool operator==(const Card& card1, const Card& card2)  {
-    return card1.getRank() == card2.getRank() && card1.getSuit() == card2.getSuit();
-}
-
 void Card::printCard() const {
     std::cout << "[" << toString(this->getSuit()) << ":" << toString(this->getRank()) << "] ";
 }

@@ -13,7 +13,8 @@ public:
     void gameLoop();
     std::vector<Player*> getPlayers();
 private:
-    Player* setTromfToPlayersSetFirstPlayer();
+    int numberOfPlayers;
+    int setTromfToPlayersGetIndexOfFirstPlayer();
     std::vector<Player*> players;
     Deck* deck;
 };

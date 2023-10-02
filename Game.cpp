@@ -11,6 +11,8 @@ Game::Game(int numberOfPlayers) {
         return;
     }
 
+    this->numberOfPlayers = numberOfPlayers;
+
     for (int i = 0; i < numberOfPlayers; ++i) {
         auto player = new Player();
         this->players.push_back(player);
@@ -36,10 +38,14 @@ std::vector<Player*> Game::getPlayers() {
 
 
 void Game::gameLoop(){
-    Player* turnPlayer = setTromfToPlayersSetFirstPlayer();
+    int indexOfTurnPlayer = setTromfToPlayersGetIndexOfFirstPlayer();
+    Player* turnPlayer = this->players.at(indexOfTurnPlayer);
+
     Card* playedCard;
 
     while(players.size() != 1) {
+        // TODO: add lose handling
+
         std::cout << turnPlayer->getName() << "'s turn\n";
         if (deck->getCards().empty()){
             playedCard = turnPlayer->playCard();
@@ -48,6 +54,9 @@ void Game::gameLoop(){
         }
 
         deck->addPlayedCard(playedCard);
+
+        ++indexOfTurnPlayer %= numberOfPlayers;
+        turnPlayer = this->players.at(indexOfTurnPlayer);
     }
     std::cout << "Game Over!";
 
@@ -72,7 +81,7 @@ bool isHeartAceInPlayerHand(Player* player){
     return false;
 }
 
-Player* Game::setTromfToPlayersSetFirstPlayer(){
+int Game::setTromfToPlayersGetIndexOfFirstPlayer(){
     int indexOfPlayerWithHeartAce;
 
     for (auto player : this->players) {
@@ -88,6 +97,6 @@ Player* Game::setTromfToPlayersSetFirstPlayer(){
         players.at((indexOfPlayerWithHeartAce + i) % numberOfPlayers )->setTromf(Suit::Suits[i]);
     }
 
-    return players.at(indexOfPlayerWithHeartAce);
+    return (int)indexOfPlayerWithHeartAce;
 }
 
