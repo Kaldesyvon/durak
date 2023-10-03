@@ -35,8 +35,6 @@ std::vector<Player*> Game::getPlayers() {
     return this->players;
 }
 
-
-
 void Game::gameLoop(){
     int indexOfTurnPlayer = setTromfToPlayersGetIndexOfFirstPlayer();
     Player* turnPlayer = this->players.at(indexOfTurnPlayer);
@@ -44,28 +42,24 @@ void Game::gameLoop(){
     Card* playedCard;
 
     while(players.size() != 1) {
-        // TODO: add lose handling
-
         std::cout << turnPlayer->getName() << "'s turn\n";
         if (deck->getCards().empty()){
-            playedCard = turnPlayer->playCard();
+            playedCard = turnPlayer->playCard(nullptr);
         } else{
             playedCard = turnPlayer->playCard(deck->getCards().back());
         }
 
         deck->addPlayedCard(playedCard);
 
-        ++indexOfTurnPlayer %= numberOfPlayers;
-        turnPlayer = this->players.at(indexOfTurnPlayer);
+        if(turnPlayer->getCardsOnHand().empty()) {
+            removePlayer(turnPlayer);
+        } else {
+            ++indexOfTurnPlayer %= numberOfPlayers;
+            turnPlayer = this->players.at(indexOfTurnPlayer);
+        }
+
     }
     std::cout << "Game Over!";
-
-
-
-//    while(players.size() != 1) {
-//        break;
-//    }
-//    std::cout << players.at(0)->getName() << " is Durak!" << std::endl;
 }
 
 bool isHeartAceInPlayerHand(Player* player){
@@ -91,12 +85,16 @@ int Game::setTromfToPlayersGetIndexOfFirstPlayer(){
         }
     }
 
-    const int numberOfPlayers = (int)players.size();
-
-    for (int i = 0; i < numberOfPlayers; ++i) {
-        players.at((indexOfPlayerWithHeartAce + i) % numberOfPlayers )->setTromf(Suit::Suits[i]);
+    for (int i = 0; i < this->numberOfPlayers; ++i) {
+        players.at((indexOfPlayerWithHeartAce + i) % this->numberOfPlayers )->setTromf(Suit::Suits[i]);
     }
 
     return (int)indexOfPlayerWithHeartAce;
+}
+
+void Game::removePlayer(Player* playerToRemove) {
+    this->players.erase(std::remove_if(this->players.begin(), this->players.end(), [playerToRemove](Player* player) {
+        return playerToRemove->getName() == player->getName();
+    }), this->players.end());
 }
 

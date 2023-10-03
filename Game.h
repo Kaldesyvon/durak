@@ -14,9 +14,10 @@ public:
     std::vector<Player*> getPlayers();
 private:
     int numberOfPlayers;
-    int setTromfToPlayersGetIndexOfFirstPlayer();
     std::vector<Player*> players;
     Deck* deck;
+    void removePlayer(Player* player);
+    int setTromfToPlayersGetIndexOfFirstPlayer();
 };
 
 

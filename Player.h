@@ -10,9 +10,9 @@ public:
     Player();
     ~Player();
     void setTromf(Suit::Suit suit);
+    Suit::Suit getTromf();
     std::string getName();
     void addToHand(Card* card);
-    Card* playCard();
     Card* playCard(Card* previousCard);
     void showHand();
     std::vector<Card*> getCardsOnHand();

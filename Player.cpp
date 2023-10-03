@@ -38,7 +38,6 @@ bool Player::isValidPositionOfCard(int index) {
     return true;
 }
 
-
 std::vector<Card*> Player::getCardsOnHand(){
     return this->cardsOnHand;
 }
@@ -53,46 +52,37 @@ void Player::showHand() {
 }
 
 bool Player::isPlayedCardValid(Card *previousCard, Card *playedCard) { // TODO: include TROMFs pls
-    if (previousCard->getValue() < playedCard->getValue()) {
-        return true;
-    }
+    if (previousCard == nullptr) return true;
+
+    if (previousCard->getValue() < playedCard->getValue()) return true;
+
     return false;
-}
-
-Card *Player::playCard() { // TODO: make this function  pls
-    int indexOfCardToPlay = -1;
-    Card* playedCard = nullptr;
-
-    do{
-        std::cout << "Choose card to play: ";
-        this->showHand();
-        std::cin >> indexOfCardToPlay;
-        playedCard = this->cardsOnHand.at(indexOfCardToPlay);
-    } while (!isValidPositionOfCard(indexOfCardToPlay));
-
-    this->cardsOnHand.erase(std::remove_if(this->cardsOnHand.begin(), this->cardsOnHand.end(), [playedCard](Card *card) {
-        // Define your condition here to identify elements to delete
-        return playedCard == card;
-    }), this->cardsOnHand.end());
-
-    return playedCard;
 }
 
 Card* Player::playCard(Card* previousCard) {
     int indexOfCardToPlay = -1;
     Card* playedCard = nullptr;
+    bool validPosition;
+    bool validPlayedCard;
 
     do{
         std::cout << "Choose card to play:\n";
         this->showHand();
         std::cin >> indexOfCardToPlay;
-        playedCard = this->cardsOnHand.at(indexOfCardToPlay); // TODO: nekontroluje valid position vcas
-    } while (!isValidPositionOfCard(indexOfCardToPlay) && isPlayedCardValid(previousCard, playedCard));
+
+        validPosition = isValidPositionOfCard(indexOfCardToPlay);
+        playedCard = this->cardsOnHand.at(indexOfCardToPlay);
+
+        validPlayedCard = isPlayedCardValid(previousCard, playedCard);
+    } while (!validPosition || !validPlayedCard);
 
     this->cardsOnHand.erase(std::remove_if(this->cardsOnHand.begin(), this->cardsOnHand.end(), [playedCard](Card *card) {
-        // Define your condition here to identify elements to delete
         return playedCard == card;
     }), this->cardsOnHand.end());
 
     return playedCard;
+}
+
+Suit::Suit Player::getTromf() {
+    return this->tromf;
 }
